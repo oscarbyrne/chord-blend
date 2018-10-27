@@ -3,14 +3,6 @@ from enum import Enum, auto
 import pandas as pd
 
 
-CHROMATIC_CARDINALITY = 12
-
-def pitch_classes(pitches):
-    pitches = pd.Series(pitches)
-    return pitches.mod(
-        CHROMATIC_CARDINALITY
-    )
-
 class Key():
 
     class Color(Enum):
@@ -29,11 +21,6 @@ class Key():
     @property
     def profile(self):
         return self.profiles[self.color]
-
-    def correlation(self, pitches):
-        return self.profile.corr(
-            pitch_classes(pitches).value_counts()
-        )
 
     def __repr__(self):
         return f'Key({self.tonic}, {self.color})'
